@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3. MobileNet — Image Classification</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #fdcb6e;
+            margin-bottom: 5px;
+        }
+
+        .sub {
+            color: #a8a8b3;
+            margin-bottom: 25px;
+        }
+
+        .container {
+            background: #16213e;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #preview {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #c0392b;
+        }
+
+        .result {
+            background: #0f3460;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 6px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #status {
+            color: #fdcb6e;
+            margin: 12px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Image Classification</h1>
+    <p class="sub">TensorFlow.js + MobileNet</p>
+    <div class="container">
+        <label class="btn" for="fileInput">Rasm tanlang</label>
+        <input type="file" id="fileInput" accept="image/*">
+        <img id="preview" alt="Rasm">
+        <br>
+        <button class="btn" id="predictBtn" onclick="predict()">Aniqlash</button>
+        <p id="status">Model yuklanmoqda...</p>
+        <div id="results"></div>
+    </div>
+    <script>
+        let model;
+        async function init() {
+            model = await mobilenet.load();
+            document.getElementById('status').textContent = 'Model tayyor!';
+        }
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => { document.getElementById('preview').src = e.target.result; document.getElementById('preview').style.display = 'block'; };
+                reader.readAsDataURL(file);
+            }
+        });
+        async function predict() {
+            const img = document.getElementById('preview');
+            if (!img.src || !model) return;
+            document.getElementById('status').textContent = 'Tahlil qilinmoqda...';
+            const predictions = await model.classify(img);
+            let html = '';
+            predictions.forEach(p => {
+                html += `<div class="result"><span>${p.className}</span><span style="color:#00b894">${(p.probability * 100).toFixed(1)}%</span></div>`;
+            });
+            document.getElementById('results').innerHTML = html;
+            document.getElementById('status').textContent = 'Tayyor!';
+        }
+        init();
+    </script>
+</body>
+
+</html>

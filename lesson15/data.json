@@ -1,0 +1,189 @@
+{
+  "talabalar": [
+    {
+      "id": 1,
+      "ism": "Talaba_1",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 44,
+        "Fizika": 33,
+        "Kimyo": 65,
+        "Biologiya": 61,
+        "Informatika": 58
+      }
+    },
+    {
+      "id": 2,
+      "ism": "Talaba_2",
+      "uslub": "vizual",
+      "natijalar": {
+        "Matematika": 43,
+        "Fizika": 99,
+        "Kimyo": 41,
+        "Biologiya": 84,
+        "Informatika": 34
+      }
+    },
+    {
+      "id": 3,
+      "ism": "Talaba_3",
+      "uslub": "vizual",
+      "natijalar": {
+        "Matematika": 41,
+        "Fizika": 57,
+        "Kimyo": 59,
+        "Biologiya": 94,
+        "Informatika": 33
+      }
+    },
+    {
+      "id": 4,
+      "ism": "Talaba_4",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 55,
+        "Fizika": 99,
+        "Kimyo": 83,
+        "Biologiya": 58,
+        "Informatika": 87
+      }
+    },
+    {
+      "id": 5,
+      "ism": "Talaba_5",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 65,
+        "Fizika": 30,
+        "Kimyo": 50,
+        "Biologiya": 84,
+        "Informatika": 73
+      }
+    },
+    {
+      "id": 6,
+      "ism": "Talaba_6",
+      "uslub": "eshituvchan",
+      "natijalar": {
+        "Matematika": 49,
+        "Fizika": 57,
+        "Kimyo": 73,
+        "Biologiya": 43,
+        "Informatika": 41
+      }
+    },
+    {
+      "id": 7,
+      "ism": "Talaba_7",
+      "uslub": "eshituvchan",
+      "natijalar": {
+        "Matematika": 42,
+        "Fizika": 75,
+        "Kimyo": 74,
+        "Biologiya": 63,
+        "Informatika": 35
+      }
+    },
+    {
+      "id": 8,
+      "ism": "Talaba_8",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 88,
+        "Fizika": 98,
+        "Kimyo": 45,
+        "Biologiya": 78,
+        "Informatika": 40
+      }
+    },
+    {
+      "id": 9,
+      "ism": "Talaba_9",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 67,
+        "Fizika": 76,
+        "Kimyo": 54,
+        "Biologiya": 38,
+        "Informatika": 35
+      }
+    },
+    {
+      "id": 10,
+      "ism": "Talaba_10",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 59,
+        "Fizika": 67,
+        "Kimyo": 40,
+        "Biologiya": 59,
+        "Informatika": 42
+      }
+    },
+    {
+      "id": 11,
+      "ism": "Talaba_11",
+      "uslub": "eshituvchan",
+      "natijalar": {
+        "Matematika": 65,
+        "Fizika": 88,
+        "Kimyo": 76,
+        "Biologiya": 50,
+        "Informatika": 77
+      }
+    },
+    {
+      "id": 12,
+      "ism": "Talaba_12",
+      "uslub": "eshituvchan",
+      "natijalar": {
+        "Matematika": 56,
+        "Fizika": 64,
+        "Kimyo": 39,
+        "Biologiya": 51,
+        "Informatika": 98
+      }
+    },
+    {
+      "id": 13,
+      "ism": "Talaba_13",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 61,
+        "Fizika": 50,
+        "Kimyo": 89,
+        "Biologiya": 78,
+        "Informatika": 64
+      }
+    },
+    {
+      "id": 14,
+      "ism": "Talaba_14",
+      "uslub": "amaliy",
+      "natijalar": {
+        "Matematika": 58,
+        "Fizika": 71,
+        "Kimyo": 37,
+        "Biologiya": 59,
+        "Informatika": 34
+      }
+    },
+    {
+      "id": 15,
+      "ism": "Talaba_15",
+      "uslub": "eshituvchan",
+      "natijalar": {
+        "Matematika": 81,
+        "Fizika": 64,
+        "Kimyo": 38,
+        "Biologiya": 57,
+        "Informatika": 70
+      }
+    }
+  ],
+  "baholash": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  }
+}

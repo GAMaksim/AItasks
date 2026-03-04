@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5. DeepLab — Image Segmentation</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/deeplab"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #fdcb6e;
+            margin-bottom: 5px;
+        }
+
+        .sub {
+            color: #a8a8b3;
+            margin-bottom: 25px;
+        }
+
+        .container {
+            background: #16213e;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .images {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .images canvas,
+        .images img {
+            max-width: 48%;
+            border-radius: 10px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #c0392b;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        #status {
+            color: #fdcb6e;
+            margin: 12px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Image Segmentation</h1>
+    <p class="sub">TensorFlow.js + DeepLab</p>
+    <div class="container">
+        <label class="btn" for="fileInput">Rasm tanlang</label>
+        <input type="file" id="fileInput" accept="image/*">
+        <div class="images">
+            <img id="original" style="display:none" alt="Asl rasm">
+            <canvas id="segCanvas" style="display:none"></canvas>
+        </div>
+        <button class="btn" onclick="segment()">Segmentatsiya</button>
+        <p id="status">Model yuklanmoqda...</p>
+        <div class="legend" id="legend"></div>
+    </div>
+    <script>
+        let model;
+        async function init() {
+            model = await deeplab.load({ base: 'pascal', quantizationBytes: 2 });
+            document.getElementById('status').textContent = 'Model tayyor!';
+        }
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.getElementById('original');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    document.getElementById('segCanvas').style.display = 'none';
+                    document.getElementById('legend').innerHTML = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        async function segment() {
+            const img = document.getElementById('original');
+            if (!img.src || !model) return;
+            document.getElementById('status').textContent = 'Segmentatsiya...';
+            const result = await model.segment(img);
+            const canvas = document.getElementById('segCanvas');
+            canvas.width = result.width;
+            canvas.height = result.height;
+            canvas.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.createImageData(result.width, result.height);
+            imageData.data.set(result.segmentationMap);
+            ctx.putImageData(imageData, 0, 0);
+            // Legend
+            let legendHtml = '';
+            const legend = result.legend;
+            for (const [label, color] of Object.entries(legend)) {
+                const rgb = `rgb(${color[0]},${color[1]},${color[2]})`;
+                legendHtml += `<div class="legend-item"><div class="legend-color" style="background:${rgb}"></div>${label}</div>`;
+            }
+            document.getElementById('legend').innerHTML = legendHtml;
+            document.getElementById('status').textContent = `${Object.keys(legend).length} ta segment topildi!`;
+        }
+        init();
+    </script>
+</body>
+
+</html>
